@@ -81,37 +81,25 @@ pub async fn connect_and_stream_data(config: &Config) -> Result<()> {
     // --- Main Message Handling Loop ---
     loop {
         tokio::select! {
-            // Read incoming messages
             maybe_message = read.next() => {
                 match maybe_message {
                     Some(Ok(message)) => {
                         match message {
                             Message::Text(text) => {
                                 debug!("Received Text message: {}", text);
-                                // --->> Now, try parsing with your specific models once defined <<---
-                                // match serde_json::from_str::<YourSpecificModelEnum>(&text) {
-                                //     Ok(parsed_data) => {
-                                //         info!("Parsed message: {:?}", parsed_data);
-                                //         // Send to arbitrage logic via channel...
-                                //     }
-                                //     Err(e) => {
-                                //         warn!("Failed to deserialize message: {}. Raw text: {}", e, text);
-                                //     }
-                                // }
-                            }
+                                                           }
                             Message::Binary(bin) => {
                                 debug!("Received Binary message: {} bytes", bin.len());
                             }
                             Message::Ping(ping_data) => {
                                 debug!("Received Server Ping: {:?}", ping_data);
-                                // tokio-tungstenite handles the Pong response automatically
                             }
                             Message::Pong(pong_data) => {
                                 debug!("Received Server Pong: {:?}", pong_data);
                             }
                             Message::Close(close_frame) => {
                                 info!("Received Close frame: {:?}", close_frame);
-                                break; // Exit loop
+                                break;
                             }
                             Message::Frame(_) => {
                                 debug!("Received unspecified Frame");
@@ -120,11 +108,11 @@ pub async fn connect_and_stream_data(config: &Config) -> Result<()> {
                     }
                     Some(Err(e)) => {
                         error!("Error reading from WebSocket: {}", e);
-                        break; // Exit loop on read error
+                        break;
                     }
                     None => {
                         info!("WebSocket stream ended.");
-                        break; // Exit loop if stream ends
+                        break;
                     }
                 }
             }
@@ -133,7 +121,7 @@ pub async fn connect_and_stream_data(config: &Config) -> Result<()> {
             Some(ping_msg) = ping_rx.recv() => {
                 if write.send(ping_msg).await.is_err() {
                     error!("Failed to send client PING to WebSocket.");
-                    break; // Exit loop on write error
+                    break;
                 }
             }
         }
