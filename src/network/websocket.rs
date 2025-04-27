@@ -87,7 +87,9 @@ pub async fn connect_and_stream_data(config: &Config) -> Result<()> {
                         match message {
                             Message::Text(text) => {
                                 debug!("Received Text message: {}", text);
-                                                           }
+                            // TODO: add parsing to response else print raw text
+
+                            }
                             Message::Binary(bin) => {
                                 debug!("Received Binary message: {} bytes", bin.len());
                             }
