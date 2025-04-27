@@ -132,49 +132,4 @@ pub async fn connect_and_stream_data(config: &Config) -> Result<()> {
 
     info!("WebSocket connection closed.");
     Ok(())
-
-    // // handle incoming messages in a loop
-    // while let Some(message_result) = read.next().await {
-    //     match message_result {
-    //         Ok(message) => {
-    //             match message {
-    //                 Message::Text(text) => {
-    //                     debug!("Received Text message: {}", text);
-    //
-    //                     tracing::debug!("received {:?}", text);
-    //                     // match serde_json::from_str::<MarketUpdate>(&text) {
-    //                     //     Ok(parsed_data) => {
-    //                     //         info!("Parsed Market Update: {:?}", parsed_data);
-    //                     //     }
-    //                     //     Err(e) => {
-    //                     //         warn!("Failed to dserialize message: {}. Raw text: {}", e, text);
-    //                     //     }
-    //                     // }
-    //                 }
-    //                 Message::Binary(bin) => {
-    //                     debug!("Received Binary message: {} bytes", bin.len());
-    //                 }
-    //                 Message::Ping(_ping_data) => {
-    //                     debug!("Received Ping");
-    //                 }
-    //                 Message::Pong(pong_data) => {
-    //                     debug!("Received Pong: {:?}", pong_data);
-    //                 }
-    //                 Message::Close(close_frame) => {
-    //                     info!("Received Close frame: {:?}", close_frame);
-    //                     break;
-    //                 }
-    //                 Message::Frame(_) => {
-    //                     debug!("Received unspecified Frame");
-    //                 }
-    //             }
-    //         }
-    //         Err(e) => {
-    //             error!("Error reading from WebSocket: {}", e);
-    //             break;
-    //         }
-    //     }
-    // }
-    //
-    // info!("Websocket connection closed.");
 }
