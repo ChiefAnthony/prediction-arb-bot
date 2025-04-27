@@ -35,7 +35,7 @@ pub async fn connect_and_stream_data(config: &Config) -> Result<()> {
 
     // TODO: replace placeholders with ACTUAL Polymarket Token Ids
     let assets_to_subscribe = vec![
-        "71321045679252212594626385532706912750332728571942532289631379312455583992563".to_string(), // Example YES token ID [cite: 374]
+        "71321045679252212594626385532706912750332728571942532289631379312455583992563".to_string(), // bullcrap token Ids
         "52114319501245915516055106046884209969926127482827954674443846427813813222426".to_string(),
     ];
 
